@@ -26,12 +26,12 @@ public class BookTask extends AsyncTask<String, Void, Bookshelves> {
                     .build();
             Log.d("Soso", "abl1");
 
-            //////////////////////////////////////
-            // THIS CALL IS WORKING
-            Books.Volumes vols = books.volumes();
-            Volumes ans = vols.list("title:harry").execute();
-            Log.d("Soso", ans.getTotalItems()+"");
-            ///////////////////////////////////////////
+//            //////////////////////////////////////
+//            // THIS CALL IS WORKING
+//            Books.Volumes vols = books.volumes();
+//            Volumes ans = vols.list("title:harry").execute();
+//            Log.d("Soso", ans.getTotalItems()+"");
+//            ///////////////////////////////////////////
             Books.Mylibrary.Bookshelves bookLib = books.mylibrary().bookshelves();
             Log.d("Soso", "abl2");
             Books.Mylibrary.Bookshelves.List bookList = null;
