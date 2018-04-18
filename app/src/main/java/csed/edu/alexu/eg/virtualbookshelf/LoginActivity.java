@@ -125,7 +125,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("Soso", "Button pressed");
-                new AddToShelf(LoginActivity.this).execute(new Account[]{account.getAccount()});
+
+                UserUtils user0 = new AddVolumeToShelf(LoginActivity.this, account.getAccount());
+                user0.execute(new String[]{"0", "buc2AAAAMAAJ"});
+
+//                UserUtils user1 = new RemoveVolumeFromShelf(LoginActivity.this, account.getAccount());
+//                user1.execute(new String[]{"0", "buc2AAAAMAAJ"});
+
+
             }
         });
 
@@ -134,55 +141,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        //updateUI(account);
-
     }
-
-
-    private class AddToShelf extends AsyncTask<Account, Void, Void> {
-        private Context context;
-        public AddToShelf(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        protected Void doInBackground(Account ... params) {
-            Log.d("Soso", "from addToShelf");
-            try {
-                GoogleAccountCredential credential =
-                        GoogleAccountCredential.usingOAuth2(
-                                context,
-                                Collections.singleton(
-                                        "https://www.googleapis.com/auth/books")
-                        );
-                credential.setSelectedAccount(params[0]);
-
-                Books books = new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(), JacksonFactory.getDefaultInstance(), null)
-                        .setApplicationName("VirtualBookShelf")
-                        .setHttpRequestInitializer(credential)
-                        .build();
-
-                List<Bookshelf> shelves = books.mylibrary().bookshelves().list().execute().getItems();
-
-
-                //Books.Mylibrary.Bookshelves.AddVolume bookShelve = books.mylibrary().bookshelves().addVolume("0", "buc0AAAAMAAJ");
-                //bookShelve.execute();
-                for (Bookshelf bookshelf : shelves) {
-                    Log.d("Soso BookShelf ID: ", ""+bookshelf.getId() + " bookTitle " +bookshelf.getTitle() + " volume count: "+bookshelf.getVolumeCount() );
-                    Log.d("Soso", "Fady Isa:D");
-                }
-                Log.d("Soso", "5alasna Authen." + shelves.size());
-            }catch (Exception ex){
-                Log.e("TAG", "Error while using Books", ex);
-            }
-
-            return null;
-        }
-
-    }
-
-
+    
 }
