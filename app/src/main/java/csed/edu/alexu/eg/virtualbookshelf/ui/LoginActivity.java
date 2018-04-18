@@ -1,24 +1,15 @@
-package csed.edu.alexu.eg.virtualbookshelf;
+package csed.edu.alexu.eg.virtualbookshelf.ui;
 
-import android.accounts.Account;
-import android.content.Context;
-import android.os.AsyncTask;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 
 import android.content.Intent;
 
 import com.google.android.gms.common.api.Scope;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.books.Books;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,19 +17,10 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.api.services.books.BooksRequestInitializer;
-import com.google.api.services.books.model.Bookshelf;
-import com.google.api.services.books.model.Bookshelves;
 
-import java.io.IOException;
-import java.net.URL;
-import java.security.GeneralSecurityException;
-import java.sql.Driver;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import javax.net.ssl.HttpsURLConnection;
+import csed.edu.alexu.eg.virtualbookshelf.AddVolumeToShelf;
+import csed.edu.alexu.eg.virtualbookshelf.R;
+import csed.edu.alexu.eg.virtualbookshelf.UserUtils;
 
 public class LoginActivity extends AppCompatActivity {
 

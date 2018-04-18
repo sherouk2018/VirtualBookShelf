@@ -7,11 +7,12 @@ import android.os.AsyncTask;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.books.Books;
+import com.google.api.services.books.model.Volumes;
 
 import java.security.ProtectionDomain;
 import java.util.Collections;
 
-public abstract class UserUtils  extends AsyncTask<String, Void, Void>{
+public abstract class UserUtils extends AsyncTask<String, Void, Volumes>{
 
     protected Context context;
     protected Account account;
@@ -35,5 +36,5 @@ public abstract class UserUtils  extends AsyncTask<String, Void, Void>{
 
     }
     @Override
-    protected abstract Void doInBackground(String... params);
+    protected abstract Volumes doInBackground(String... params);
 }

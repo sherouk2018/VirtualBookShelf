@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.api.services.books.Books;
 import com.google.api.services.books.model.Bookshelf;
+import com.google.api.services.books.model.Volumes;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +18,7 @@ public class AddVolumeToShelf extends UserUtils {
 
     @Override
     // Params are sent where params[0]: ShelfID, params[1]: volumeID
-    protected Void doInBackground(String... params) {
+    protected Volumes doInBackground(String... params) {
         Books.Mylibrary.Bookshelves.AddVolume bookShelve = null;
         try {
             //params[0]: ShelfID, params[1]: volumeID
@@ -25,7 +26,7 @@ public class AddVolumeToShelf extends UserUtils {
             bookShelve = books.mylibrary().bookshelves().addVolume(params[0], params[1]);
             bookShelve.execute();
             Log.d("Soso", "after Addto bookShelf");
-            //
+            // Todo remove unnecessary code.
             List<Bookshelf> shelves = books.mylibrary().bookshelves().list().execute().getItems();
             for (Bookshelf bookshelf : shelves) {
                 if(bookshelf.getId() == 0 )

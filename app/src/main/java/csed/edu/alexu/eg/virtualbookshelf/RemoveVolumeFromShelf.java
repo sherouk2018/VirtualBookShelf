@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.api.services.books.Books;
 import com.google.api.services.books.model.Bookshelf;
+import com.google.api.services.books.model.Volumes;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +18,7 @@ public class RemoveVolumeFromShelf extends UserUtils {
     }
 
     @Override
-    protected Void doInBackground(String... params) {
+    protected Volumes doInBackground(String... params) {
         //params[0]: ShelfID, params[1]: volumeID
         if(params.length == 1) clearShelf(params[0]);
         else deleteFromShelf(params[0], params[1]);
