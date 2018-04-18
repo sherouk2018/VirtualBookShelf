@@ -41,7 +41,7 @@ public class BookTask extends AsyncTask<String, Void, Bookshelves> {
             bookList.setOauthToken(params[0]);
             Log.d("Soso", "abl3");
 
-            bookshelves = bookList.execute();
+           // bookshelves = bookList.execute();
             Log.d("Soso", "b3d");
 
         } catch (IOException e) {
