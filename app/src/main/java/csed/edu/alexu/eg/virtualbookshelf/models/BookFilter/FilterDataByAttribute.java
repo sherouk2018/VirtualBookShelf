@@ -1,4 +1,4 @@
-package csed.edu.alexu.eg.virtualbookshelf.models;
+package csed.edu.alexu.eg.virtualbookshelf.models.BookFilter;
 
 import android.util.Log;
 
@@ -9,17 +9,16 @@ import java.io.IOException;
 
 import csed.edu.alexu.eg.virtualbookshelf.utility.Constants;
 
-public class FilterDataByAttribute implements FilterDataContext{
+public class FilterDataByAttribute implements FilterDataContext {
 
     private static final String TAG = FilterDataByLocation.class.getSimpleName();
 
     @Override
-    public Volumes filterData(String query) {
+    public Volumes filterData(String query, Books books) {
         Log.d(TAG, "Begin Filtering data by attribute: " + query);
         Volumes volumes = null;
         try {
-            // Todo initialize books based on a static class.
-            Books books = null;
+
             Books.Volumes.List listBooksInst = books.volumes().list(query);
             listBooksInst.setMaxResults(Constants.MAX_RESULTS);
             volumes = listBooksInst.execute();

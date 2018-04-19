@@ -1,4 +1,4 @@
-package csed.edu.alexu.eg.virtualbookshelf.models;
+package csed.edu.alexu.eg.virtualbookshelf.models.BookFilter;
 
 import java.util.HashMap;
 

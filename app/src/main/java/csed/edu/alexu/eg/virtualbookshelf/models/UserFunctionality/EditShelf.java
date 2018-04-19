@@ -1,29 +1,20 @@
-package csed.edu.alexu.eg.virtualbookshelf;
+package csed.edu.alexu.eg.virtualbookshelf.models.UserFunctionality;
 
-import android.accounts.Account;
-import android.content.Context;
 import android.util.Log;
 
 import com.google.api.services.books.Books;
 import com.google.api.services.books.model.Bookshelf;
-import com.google.api.services.books.model.Volumes;
 
 import java.io.IOException;
 import java.util.List;
 
-public class AddVolumeToShelf extends UserUtils {
-    public AddVolumeToShelf(Context context, Account account) {
-        super(context, account);
-    }
-
-    @Override
-    // Params are sent where params[0]: ShelfID, params[1]: volumeID
-    protected Volumes doInBackground(String... params) {
+public class EditShelf {
+    public void AddVolumeToShelf(String shelfID, String volumeID, Books  books) {
         Books.Mylibrary.Bookshelves.AddVolume bookShelve = null;
         try {
             //params[0]: ShelfID, params[1]: volumeID
             Log.d("Soso", "before Addto bookShelf");
-            bookShelve = books.mylibrary().bookshelves().addVolume(params[0], params[1]);
+            bookShelve = books.mylibrary().bookshelves().addVolume(shelfID, volumeID);
             bookShelve.execute();
             Log.d("Soso", "after Addto bookShelf");
             // Todo remove unnecessary code.
@@ -43,6 +34,33 @@ public class AddVolumeToShelf extends UserUtils {
         } catch (IOException e) {
             Log.e("Soso", "Error in add book volume");
         }
-        return null;
+    }
+
+    public void clearShelf (String shelfID, Books books){
+
+        try {
+            Books.Mylibrary.Bookshelves.ClearVolumes bookShelve = null;
+            Log.d("Soso", "before delete from bookShelf");
+            bookShelve = books.mylibrary().bookshelves().clearVolumes(shelfID);
+            bookShelve.execute();
+            Log.d("Soso", "after delete from bookShelf");
+        } catch (IOException e) {
+            Log.e("Soso", "Error in remove book volume");
+        }
+
+    }
+    public void deleteFromShelf (String shelfID, String volumeID, Books books){
+        try {
+
+            Books.Mylibrary.Bookshelves.RemoveVolume bookShelve = null;
+            Log.d("Soso", "before delete from bookShelf");
+            bookShelve = books.mylibrary().bookshelves().removeVolume(shelfID, volumeID);
+            bookShelve.execute();
+            Log.d("Soso", "after delete from bookShelf");
+
+        } catch (IOException e) {
+            Log.e("Soso", "Error in remove book volume");
+        }
+
     }
 }

@@ -18,9 +18,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import csed.edu.alexu.eg.virtualbookshelf.AddVolumeToShelf;
+
+import csed.edu.alexu.eg.virtualbookshelf.utility.EditFactory;
 import csed.edu.alexu.eg.virtualbookshelf.R;
-import csed.edu.alexu.eg.virtualbookshelf.UserUtils;
+import csed.edu.alexu.eg.virtualbookshelf.utility.UserUtils;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private Button buttonAdd;
     private GoogleSignInAccount account;
+    private EditFactory factory;
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -59,25 +61,37 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("Soso Email is ", account.getEmail()); // Debug
             Log.d("Soso Token is ", account.getIdToken()); // Debug
             Log.d("Soso Id is ", account.getId()); // Debug
-
-            //AsyncTask<String, Void, Bookshelves> bookshelves = new BookTask().execute(new String[]{account.getIdToken()});
-
-//            while (bookshelves.getStatus() != AsyncTask.Status.FINISHED) {
-//                Log.d("Soso w bs", ""+bookshelves.getStatus());
-//            }
-
             Log.d("Soso", "w ry7n 3la eloop");
 
             // Signed in successfully, show authenticated UI.
-            //updateUI(account);
+            updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.e("Soso", "signInResult:failed code=" + e.getStatusCode());
-            //updateUI(null);
+
         }
     }
 
+    protected  void updateUI(GoogleSignInAccount account){
+        Log.d("Soso", "UI updated");
+        EditFactory.init(LoginActivity.this, account.getAccount());
+        factory = EditFactory.getInstance();
+        //TODO move to home activity.
+        
+//        UserUtils user0 = factory.getEditFun("AddVolumeToShelf");
+//        Log.d("Soso", "after");
+//        user0.execute(new String[]{"0", "buc5AAAAMAAJ"});
+//        UserUtils user0 = factory.getEditFun("FilterData");
+//        Log.d("Soso", "after");
+//        user0.execute(new String[]{"FilterDataByAttribute", "intitle:Harry"});
+
+//                UserUtils user1 = new RemoveVolumeFromShelf(LoginActivity.this, account.getAccount());
+//                user1.execute(new String[]{"0", "buc2AAAAMAAJ"});
+
+
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,15 +120,6 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Soso", "Button pressed");
-
-                UserUtils user0 = new AddVolumeToShelf(LoginActivity.this, account.getAccount());
-                user0.execute(new String[]{"0", "buc2AAAAMAAJ"});
-
-//                UserUtils user1 = new RemoveVolumeFromShelf(LoginActivity.this, account.getAccount());
-//                user1.execute(new String[]{"0", "buc2AAAAMAAJ"});
-
-
             }
         });
 
