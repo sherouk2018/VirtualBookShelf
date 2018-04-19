@@ -78,18 +78,9 @@ public class LoginActivity extends AppCompatActivity {
         EditFactory.init(LoginActivity.this, account.getAccount());
         factory = EditFactory.getInstance();
         //TODO move to home activity.
-        
-//        UserUtils user0 = factory.getEditFun("AddVolumeToShelf");
-//        Log.d("Soso", "after");
-//        user0.execute(new String[]{"0", "buc5AAAAMAAJ"});
-//        UserUtils user0 = factory.getEditFun("FilterData");
-//        Log.d("Soso", "after");
-//        user0.execute(new String[]{"FilterDataByAttribute", "intitle:Harry"});
 
-//                UserUtils user1 = new RemoveVolumeFromShelf(LoginActivity.this, account.getAccount());
-//                user1.execute(new String[]{"0", "buc2AAAAMAAJ"});
-
-
+        Intent myIntent = new Intent(this, HomeActivity.class);
+        startActivity(myIntent);
 
     }
     @Override

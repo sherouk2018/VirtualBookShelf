@@ -4,31 +4,22 @@ import android.util.Log;
 
 import com.google.api.services.books.Books;
 import com.google.api.services.books.model.Volumes;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import csed.edu.alexu.eg.virtualbookshelf.models.BookFilter.FilterDataByAttribute;
 import csed.edu.alexu.eg.virtualbookshelf.models.BookFilter.FilterDataContext;
 
-public class FilterData extends UserUtils {
-    private String path = "csed.edu.alexu.eg.virtualbookshelf.models.BookFilter.";
+public class FilterData{
+    private final String path = "csed.edu.alexu.eg.virtualbookshelf.models.BookFilter.";
+    private final String TAG = FilterData.class.getSimpleName();
 
-    public FilterData(Books books) {
-        super(books);
-    }
-
-    @Override
-    protected Volumes doInBackground(String... params) {
-
+    public Volumes getVolumesBasedOnFilter(String... params) {
         try {
-            Log.d("Soso in filter", "params: "+ params[0] + " "+params[1]);
+            Log.d(TAG, "Begin filtering data using params: " + params[0] + " " + params[1]);
             FilterDataContext filter = (FilterDataContext) Class.forName(path + params[0]).newInstance();
-            return filter.filterData(params[1], books);
+            Log.d(TAG, "Returning object from type " + filter.getClass().getSimpleName());
+            return filter.filterData(params[1], EditFactory.getInstance().getBooks());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
+            Log.e(TAG, "Failed to create object");
+            throw new RuntimeException("Invalid parameters for filter");
         }
-        throw new RuntimeException("Invalid parameters for filter");
-
     }
 }

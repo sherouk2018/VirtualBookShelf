@@ -14,49 +14,66 @@ import java.util.Collections;
 
 public class EditFactory  {
 
+    private static final String TAG = EditFactory.class.getSimpleName();
     private static Books books;
     private static EditFactory factory;
 
     private EditFactory() {
     }
-    public static void init (Context myContext, Account myAccount ){
+
+    public static void init (Context myContext, Account myAccount){
+        Log.d(TAG, "Begin initializing book object");
         if(factory == null){
-            GoogleAccountCredential credential =
-                    GoogleAccountCredential.usingOAuth2(
-                            myContext,
-                            Collections.singleton(
-                                    "https://www.googleapis.com/auth/books")
-                    );
+            Log.d(TAG, "Begin creating credentials");
+            GoogleAccountCredential credential = createGoogleAccountCredentials(myContext, myAccount);
+            Log.d(TAG, "Finish creating credentials");
             credential.setSelectedAccount(myAccount);
-            books = new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(),
-                    JacksonFactory.getDefaultInstance(), null)
-                    .setApplicationName("VirtualBookShelf")
-                    .setHttpRequestInitializer(credential)
-                    .build();
-
+            Log.d(TAG, "Begin creating books object");
+            books = createBooksObject(credential);
+            Log.d(TAG, "Finish creating books object");
             factory = new EditFactory();
-            Log.d("Soso", "in init");
+            Log.d(TAG, "Finish initializing book object");
         }
-
     }
+
+    private static Books createBooksObject(GoogleAccountCredential credential) {
+        return new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(),
+                JacksonFactory.getDefaultInstance(), null)
+                .setApplicationName("VirtualBookShelf")
+                .setHttpRequestInitializer(credential)
+                .build();
+    }
+
+    private static GoogleAccountCredential createGoogleAccountCredentials(Context myContext, Account myAccount) {
+        return GoogleAccountCredential.usingOAuth2(myContext,
+                Collections.singleton("https://www.googleapis.com/auth/books"));
+    }
+
     public static EditFactory getInstance(){
-        Log.d("Soso", "in get instance");
+        Log.d(TAG, "Returning EditFactory instance");
         return factory;
-
     }
+
     public UserUtils getEditFun(String className) {
         if (books == null) throw new RuntimeException ("Books have no entity");
         try {
-            Log.d("Soso className", className);
+            Log.d(TAG, "Creating an object for class: " + className);
             Constructor c = Class.forName("csed.edu.alexu.eg.virtualbookshelf.utility."+ className)
                     .getConstructor(Books.class);
             UserUtils obj = (UserUtils) c.newInstance(books);
+            Log.d(TAG, "Finish creating object: " + obj.getClass().getSimpleName());
             return obj;
         } catch (ClassNotFoundException | NoSuchMethodException
                 | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
+            Log.e(TAG, "Fail to create object in EditFactory");
+            throw new RuntimeException("Invalid UserUtils Class");
         }
-        throw new RuntimeException("Invalid UserUtils Class");
     }
 
+    public Books getBooks() {
+        Log.d(TAG, "Returning books object");
+        if (books == null) throw new RuntimeException("Books is not set yet");
+        return books;
+    }
 }

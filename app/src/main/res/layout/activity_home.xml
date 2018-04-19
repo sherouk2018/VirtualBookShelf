@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.HomeActivity">
+
+
+    <LinearLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:hint="Search string"
+            android:paddingLeft="10dp">
+
+        </EditText>
+
+        <Spinner
+            android:id="@+id/search_choices"
+            android:layout_width="80dp"
+            android:layout_height="50dp" />
+
+        <Button
+            android:id="@+id/do_filter"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:textSize="8sp"
+            android:text="filter" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/admin_functinalities"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+
+
+        <Button
+            android:id="@+id/show_shelf"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textSize="8sp"
+            android:text="show shelf"
+            android:gravity="center"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <!-- LinearLayout=
+         android:layout_width="wrap"
+            android:layout_height="50dp"
+        android:id="@+id/admin_functionalities">
+
+    </LinearLayout -->
+
+    <ListView
+        android:id="@+id/books_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+
+</LinearLayout>
